@@ -36,6 +36,14 @@ public class EmployeeInMemoryRepositoryTest {
 	 */
 	@Test
 	public void testEmployeeRepositoryFindAll() {
+		Employee employee1= new Employee("1",1000.0);
+		Employee employee2= new Employee("2",2000.0);
+
+		employees.add((employee1));
+		employees.add((employee2));
+
+		assertThat(employeeRepository.findAll()).contains(employee1,employee2);
+
 
 	}
 
@@ -47,6 +55,9 @@ public class EmployeeInMemoryRepositoryTest {
 	 */
 	@Test
 	public void testEmployeeRepositorySaveNewEmployee() {
+		Employee employee1= new Employee("1",1000.0);
+		employeeRepository.save(employee1);
+		assertThat(employee1);
 
 	}
 
@@ -61,6 +72,15 @@ public class EmployeeInMemoryRepositoryTest {
 	 */
 	@Test
 	public void testEmployeeRepositorySaveExistingEmployee() {
+		Employee employee1= new Employee("1",1000.0);
+		Employee employee2= new Employee("2",2000.0);
 
+		employees.add((employee1));
+		employees.add((employee2));
+
+		employee1.setSalary(100.0);
+		employeeRepository.save(employee1);
+
+		assertThat(employees.get(0).getSalary()).isEqualTo(100.0);
 	}
 }
